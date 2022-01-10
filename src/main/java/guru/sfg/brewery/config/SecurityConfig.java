@@ -15,7 +15,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         ((HttpSecurity) ((HttpSecurity) ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)
                 http
                         .authorizeRequests(authorize -> {
-                            authorize.antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll();
+                            authorize
+                                    .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
+                                    .antMatchers("/beers/find").permitAll();
                         })
                         .authorizeRequests().anyRequest()).authenticated()
                 .and())
