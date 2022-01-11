@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     PasswordEncoder passwordEncoder() {
         //return NoOpPasswordEncoder.getInstance();
         //return new LdapShaPasswordEncoder();
-        return new StandardPasswordEncoder();
+        //return new StandardPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -51,13 +53,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("spring")
                 //.password("guru")
                 //.password("{SSHA}wj1dq3l7C7RCIxyehITzochuT30VljBjY3Kvmw==")
-                .password("0aa6b69ed729181be9302f0010fb3c6ce0b79de6c8a9ae55df791a540ef962ca72e6bf0186247d08")
+                //.password("0aa6b69ed729181be9302f0010fb3c6ce0b79de6c8a9ae55df791a540ef962ca72e6bf0186247d08")
+                .password("$2a$10$Q5oUTeI/4OrokjGrNAHZtON2Mr.hhHIiIqM4Td34d3T8bLzKTNrQm")
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
                 //.password("password")
                 //.password("{SSHA}wj1dq3l7C7RCIxyehITzochuT30VljBjY3Kvmw==")
-                .password("0aa6b69ed729181be9302f0010fb3c6ce0b79de6c8a9ae55df791a540ef962ca72e6bf0186247d08")
+                //.password("0aa6b69ed729181be9302f0010fb3c6ce0b79de6c8a9ae55df791a540ef962ca72e6bf0186247d08")
+                .password("$2a$10$Q5oUTeI/4OrokjGrNAHZtON2Mr.hhHIiIqM4Td34d3T8bLzKTNrQm")
                 .roles("USER");
         auth.inMemoryAuthentication().withUser("scott").password("tiger").roles("CUSTOMER");
     }
