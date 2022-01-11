@@ -1,5 +1,6 @@
 package guru.sfg.brewery.config;
 
+import com.sun.xml.bind.api.impl.NameConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
@@ -39,18 +41,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder() {
         //return NoOpPasswordEncoder.getInstance();
-        return new LdapShaPasswordEncoder();
+        //return new LdapShaPasswordEncoder();
+        return new StandardPasswordEncoder();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("spring")
-                .password("{SSHA}wj1dq3l7C7RCIxyehITzochuT30VljBjY3Kvmw==")
+                //.password("guru")
+                //.password("{SSHA}wj1dq3l7C7RCIxyehITzochuT30VljBjY3Kvmw==")
+                .password("0aa6b69ed729181be9302f0010fb3c6ce0b79de6c8a9ae55df791a540ef962ca72e6bf0186247d08")
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
-                .password("{SSHA}wj1dq3l7C7RCIxyehITzochuT30VljBjY3Kvmw==")
+                //.password("password")
+                //.password("{SSHA}wj1dq3l7C7RCIxyehITzochuT30VljBjY3Kvmw==")
+                .password("0aa6b69ed729181be9302f0010fb3c6ce0b79de6c8a9ae55df791a540ef962ca72e6bf0186247d08")
                 .roles("USER");
         auth.inMemoryAuthentication().withUser("scott").password("tiger").roles("CUSTOMER");
     }
