@@ -1,22 +1,20 @@
 package guru.sfg.brewery.security;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Slf4j
-public class RestHeaderAuthFilter extends AbstractRestHeaderAuthFilter {
+public class RestUrlAuthFilter extends AbstractRestHeaderAuthFilter {
 
-    public RestHeaderAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+    public RestUrlAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(requiresAuthenticationRequestMatcher);
     }
 
     protected String getPassword(HttpServletRequest httpServletRequest) {
-        return httpServletRequest.getHeader("Api-Secret");
+        return httpServletRequest.getParameter("apiSecret");
     }
 
     protected String getUsername(HttpServletRequest httpServletRequest) {
-        return httpServletRequest.getHeader("Api-Key");
+        return httpServletRequest.getParameter("apiKey");
     }
 }
